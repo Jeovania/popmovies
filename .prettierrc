@@ -1,0 +1,17 @@
+{
+  "prettier.trailingComma": "es5",
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "useTabs": true,
+  "prettier.tabWidth": 4,
+  "editor.tabSize": 4,
+  "jsxBracketSameLine": false,
+  "arrowParens": "avoid",
+  "editor.detectIndentation": true,
+  "[javascript]": {
+    "useTabs": true,
+    "prettier.tabWidth": 4,
+    "editor.formatOnSave": true
+  }
+}
