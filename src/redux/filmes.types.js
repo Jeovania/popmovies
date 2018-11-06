@@ -8,12 +8,12 @@ export const INITIAL_STATE = {
 }
 
 export const FIREBASE_DB_CONFIG = {
-	apiKey: 'AIzaSyAnGMr2a9R6wvhDH4a_MA4RdiCJ_p1RpcQ',
-	authDomain: 'popmovies-311ce.firebaseapp.com',
-	databaseURL: 'https://popmovies-311ce.firebaseio.com',
-	projectId: 'popmovies-311ce',
-	storageBucket: 'popmovies-311ce.appspot.com',
-	messagingSenderId: '1049034053659'
+	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+	databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 }
 
 export const FILMES_API = process.env.REACT_APP_URL_FILMES_API

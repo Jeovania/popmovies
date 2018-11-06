@@ -18,14 +18,16 @@ const styles = theme => ({
 	},
 	details: {
 		display: 'flex',
-		flexDirection: 'column'
+		flexDirection: 'column',
+		alignItems: 'start'
 	},
 	content: {
 		flex: '1 0 auto',
-		align: 'left'
+		alignItems: 'start'
 	},
 	cover: {
-		width: 151
+		width: 151,
+		height: 175
 	},
 	controls: {
 		display: 'flex',
@@ -37,7 +39,7 @@ const styles = theme => ({
 
 class Filme extends Component {
 	render() {
-		const { classes, id, poster_path, title } = this.props
+		const { classes, id, poster_path, title, release_date } = this.props
 
 		console.log(this.props)
 
@@ -50,7 +52,7 @@ class Filme extends Component {
 								{title}
 							</Typography>
 							<Typography variant="subtitle1" color="textSecondary">
-								Mac Miller
+								{release_date && release_date.substring(0, 4)}
 							</Typography>
 							<div className={classes.controls}>
 								<IconButton aria-label="Previous">

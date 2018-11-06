@@ -26,9 +26,10 @@ export const getFilmes = (data = {}, page = 1, isLoading = true) => dispatch => 
 	data['page'] = page
 	data['api_key'] = types.API_KEY
 	data['language'] = 'pt-BR'
+	data['append_to_response'] = 'genres'
 
 	return axios
-		.get(`${types.FILMES_API}/discover/movie?sort_by=popularity.desc&append_to_response=genres`, {
+		.get(`${types.FILMES_API}/discover/movie?sort_by=popularity.desc`, {
 			params: data
 		})
 		.then(response => {
