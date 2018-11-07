@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { isMobile } from 'react-device-detect'
 
-import { getFilme } from '../redux/filmes.action'
-import { favoritosRef } from '../redux/firebase'
+import { getFilme, favoritar, desfavoritar } from '../redux/FilmesAction'
 
 /* Components */
 import Navbar from '../components/Navbar'
@@ -63,23 +62,19 @@ class DetalhesFilme extends Component {
 	}
 
 	toggleFavorito = data => {
-		try {
-			favoritosRef.set(data)
-		} catch (error) {
-			console.log(error)
-		}
+		console.log(data)
 	}
 
 	render() {
 		const { filme, isLoading, classes } = this.props
 
-		console.log(filme)
-
 		return (
 			<Fragment>
 				<Navbar
 					titulo={
-						`${filme.title} (${filme.release_date && filme.release_date.substring(0, 4)})` || ''
+						`${filme.detalhes && filme.detalhes.title} (${filme.detalhes &&
+							filme.detalhes.release_date &&
+							filme.detalhes.release_date.substring(0, 4)})` || ''
 					}
 					hasTabs={true}
 					back={true}
@@ -89,62 +84,79 @@ class DetalhesFilme extends Component {
 					{isLoading ? (
 						<CircularProgress />
 					) : (
-						<Fragment>
-							<Grid
-								container
-								direction="row"
-								className={classes.cover}
-								style={{
-									backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${filme.backdrop_path})`
-								}}
-							>
-								<Grid item md={3} sm={3} xs={12}>
-									<img
-										src={`https://image.tmdb.org/t/p/w342/${filme.poster_path}`}
-										alt={filme.title}
-										className={classes.poster}
-									/>
-								</Grid>
-								<Grid item md={9} sm={9} xs={12} className={classes.content}>
-									<Typography variant={isMobile ? 'h5' : 'h3'} color="inherit" gutterBottom>
-										{filme.title} ({filme.release_date && filme.release_date.substring(0, 4)})
-									</Typography>
-									<Typography variant="h6" color="inherit">
-										Sumário:
-									</Typography>
-									<Typography variant="body2" color="inherit">
-										{filme.overview}
-									</Typography>
+						filme.detalhes && (
+							<Fragment>
+								<Grid
+									container
+									direction="row"
+									className={classes.cover}
+									style={{
+										backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${
+											filme.detalhes.backdrop_path
+										})`
+									}}
+								>
+									<Grid item md={3} sm={3} xs={12}>
+										<img
+											src={`https://image.tmdb.org/t/p/w342/${filme.detalhes.poster_path}`}
+											alt={filme.detalhes.title}
+											className={classes.poster}
+										/>
+									</Grid>
+									<Grid item md={9} sm={9} xs={12} className={classes.content}>
+										<Typography variant={isMobile ? 'h5' : 'h3'} color="inherit" gutterBottom>
+											{filme.detalhes.title} ({filme.detalhes.release_date &&
+												filme.detalhes.release_date.substring(0, 4)})
+										</Typography>
+										<Typography variant="h6" color="inherit">
+											Sumário:
+										</Typography>
+										<Typography variant="body2" color="inherit">
+											{filme.detalhes.overview}
+										</Typography>
 
-									{filme.genres &&
-										filme.genres.map(genero => <Chip key={genero.id} label={genero.name} />)}
+										{filme.detalhes.genres &&
+											filme.detalhes.genres.map(genero => (
+												<Chip key={genero.id} label={genero.name} />
+											))}
 
-									<Button
-										variant="fab"
-										size="small"
-										aria-label="Favoritar"
-										color="default"
-										onClick={() => this.toggleFavorito({ id: filme.id })}
-									>
-										<StarIcon />
-									</Button>
+										{filme.favorito ? (
+											<Button
+												variant="fab"
+												aria-label="Desfavoritar"
+												color="secondary"
+												onClick={() => this.props.desfavoritar(filme.detalhes.id)}
+											>
+												<StarIcon />
+											</Button>
+										) : (
+											<Button
+												variant="fab"
+												aria-label="Favoritar"
+												color="default"
+												onClick={() => this.props.favoritar(filme.detalhes.id)}
+											>
+												<StarIcon />
+											</Button>
+										)}
+									</Grid>
 								</Grid>
-							</Grid>
 
-							<Grid container direction="row">
-								<Grid item md={8} sm={12} xs={12} />
-								<Grid item md={4} sm={12} xs={12}>
-									<List>
-										<ListItem divider>
-											<ListItemText primary="Situação:" secondary={filme.status} />
-										</ListItem>
-										<ListItem divider>
-											<ListItemText primary="Orçamento:" secondary={filme.budget} />
-										</ListItem>
-									</List>
+								<Grid container direction="row">
+									<Grid item md={8} sm={12} xs={12} />
+									<Grid item md={4} sm={12} xs={12}>
+										<List>
+											<ListItem divider>
+												<ListItemText primary="Situação:" secondary={filme.detalhes.status} />
+											</ListItem>
+											<ListItem divider>
+												<ListItemText primary="Orçamento:" secondary={filme.detalhes.budget} />
+											</ListItem>
+										</List>
+									</Grid>
 								</Grid>
-							</Grid>
-						</Fragment>
+							</Fragment>
+						)
 					)}
 				</Page>
 			</Fragment>
@@ -157,6 +169,7 @@ const mapStateToPros = ({ filmes }) => ({
 	filme: filmes.filme
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getFilme }, dispatch)
+const mapDispatchToProps = dispatch =>
+	bindActionCreators({ getFilme, favoritar, desfavoritar }, dispatch)
 
 export default connect(mapStateToPros, mapDispatchToProps)(withStyles(styles)(DetalhesFilme))

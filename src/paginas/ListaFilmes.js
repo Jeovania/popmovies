@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { isMobile } from 'react-device-detect'
 
-import { getFilmes } from '../redux/filmes.action'
+import { getFilmes } from '../redux/FilmesAction'
 
 /* Components */
 import Navbar from '../components/Navbar'

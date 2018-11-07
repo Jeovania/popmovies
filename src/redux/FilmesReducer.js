@@ -1,4 +1,4 @@
-import * as types from '../redux/filmes.types'
+import * as types from '../redux/FilmesTypes'
 
 export const filmes = (state = types.INITIAL_STATE, action) => {
 	switch (action.type) {
@@ -25,9 +25,13 @@ export const filmes = (state = types.INITIAL_STATE, action) => {
 				filme: []
 			}
 		case types.GET_FILME:
+			let filme = {}
+			filme['detalhes'] = action.payload
+			filme['favorito'] = action.favorito
+
 			return {
 				...state,
-				filme: action.payload,
+				filme: filme,
 				loading: false
 			}
 		case types.BUSCA_FILME:
@@ -35,11 +39,16 @@ export const filmes = (state = types.INITIAL_STATE, action) => {
 				...state,
 				busca: action.payload
 			}
-		case types.LOADING_FAVORITO:
+		case types.TOGGLE_FAVORITO: {
+			let filmeUpdate = {}
+			filmeUpdate['detalhes'] = state.filme.detalhes
+			filmeUpdate['favorito'] = action.payload
+
 			return {
 				...state,
-				loading_favorito: true
+				filme: filmeUpdate
 			}
+		}
 		default:
 			return state
 	}

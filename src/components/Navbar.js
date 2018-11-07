@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import { debounce } from 'underscore'
 
 /* Actions */
-import { busca } from '../redux/filmes.action'
+import { busca } from '../redux/FilmesAction'
 
 /* Layout */
 import { withStyles } from '@material-ui/core/styles'

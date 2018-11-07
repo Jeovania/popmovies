@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 
-import * as types from '../redux/filmes.types'
+import * as types from '../redux/FilmesTypes'
 
 /**
  * Set do status do loading da página
@@ -48,20 +48,36 @@ export const getFilmes = (data = {}, page = 1, isLoading = true) => dispatch => 
  * Recupera detalhes de um filme
  * @param {integer} id
  */
-export const getFilme = id => dispatch => {
+export const getFilme = id => async (dispatch, getState, { getFirebase, getFirestore }) => {
 	dispatch(loading(true))
 
-	return axios
+	//const firestore = getFirestore()
+
+	await axios
 		.get(
 			`${types.FILMES_API}/movie/${id}?api_key=${
 				types.API_KEY
 			}&language=pt-BR&append_to_response=videos`
 		)
 		.then(response => {
+			let filme = response.data
+			/* 		firestore
+				.collection('favoritos')
+				.get({ movieId: filme.id })
+				.then(response => { */
 			dispatch({
 				type: types.GET_FILME,
-				payload: response.data
+				payload: filme,
+				favorito: false
 			})
+			/* 	})
+				.catch(error => {
+					dispatch({
+						type: types.GET_FILME,
+						payload: filme,
+						favorito: false
+					})
+				}) */
 		})
 		.catch(error => {
 			toastr.error('Erro ao recuperar filme', error.status_message)
@@ -78,7 +94,6 @@ export const busca = (query, page = 1) => dispatch => {
 	return axios
 		.get(`${types.FILMES_API}/search/movie?query=${query}&api_key=${types.API_KEY}&language=pt-BR`)
 		.then(response => {
-			console.log(response.data)
 			dispatch({
 				type: types.BUSCA_FILME,
 				payload: response.data,
@@ -88,5 +103,35 @@ export const busca = (query, page = 1) => dispatch => {
 		.catch(error => {
 			console.log(error.status_message)
 			toastr.error('Erro ao buscar filme', error.status_message)
+		})
+}
+
+export const favoritar = filmeId => (dispatch, getState, { getFirebase, getFirestore }) => {
+	const firestore = getFirestore()
+	firestore
+		.collection('favoritos')
+		.add({ movieId: filmeId, createdAt: new Date() })
+		.then(response => {
+			console.log('Favoritado')
+			dispatch({ type: types.TOGGLE_FAVORITO, payload: true })
+		})
+		.catch(error => {
+			dispatch({ type: types.TOGGLE_FAVORITO, payload: false })
+			console.log(error)
+		})
+}
+
+export const desfavoritar = filmeId => (dispatch, getState, { getFirebase, getFirestore }) => {
+	const firestore = getFirestore()
+	firestore
+		.collection('favoritos')
+		.add({ movieId: filmeId, createdAt: new Date() })
+		.then(response => {
+			console.log('Des - Favoritado')
+			dispatch({ type: types.TOGGLE_FAVORITO, payload: false })
+		})
+		.catch(error => {
+			dispatch({ type: types.TOGGLE_FAVORITO, payload: false })
+			console.log(error)
 		})
 }
