@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
-import firebase from 'firebase'
 
 import * as types from '../redux/filmes.types'
 
@@ -90,14 +89,4 @@ export const busca = (query, page = 1) => dispatch => {
 			console.log(error.status_message)
 			toastr.error('Erro ao buscar filme', error.status_message)
 		})
-}
-
-/**
- * Favoritar filme
- * @param {integer} id
- */
-export const favoritarFilme = id => dispatch => {
-	dispatch({ type: types.LOADING_FAVORITO })
-
-	return null
 }
