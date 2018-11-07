@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 'stable'
+  - '8'
 script:
   - npm test
   - npm run build
@@ -11,3 +11,9 @@ deploy:
   project: ./build/
 on:
   branch: master
+notifications:
+  email:
+    recipients:
+      - jeovaniaabreu@gmail.com
+    on_success: change
+    on_failure: always
