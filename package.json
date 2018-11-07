@@ -2,6 +2,7 @@
 	"name": "popmovies",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "http://pop-movies-teste.surge.sh/",
 	"dependencies": {
 		"@material-ui/core": "^3.4.0",
 		"@material-ui/icons": "^3.0.1",
@@ -43,15 +44,7 @@
 		"extends": "react-app"
 	},
 	"lint-staged": {
-		"src/**/*.{js,jsx,json,css}": [
-			"prettier --single-quote --write",
-			"git add"
-		]
+		"src/**/*.{js,jsx,json,css}": ["prettier --single-quote --write", "git add"]
 	},
-	"browserslist": [
-		">0.2%",
-		"not dead",
-		"not ie <= 11",
-		"not op_mini all"
-	]
+	"browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
