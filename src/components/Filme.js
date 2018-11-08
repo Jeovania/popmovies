@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 
+import { stylesFilme } from '../assets/styles/Filme'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -9,43 +10,18 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
+import Chip from '@material-ui/core/Chip'
+import Avatar from '@material-ui/core/Avatar'
 import StarIcon from '@material-ui/icons/Star'
-
-const styles = theme => ({
-	card: {
-		display: 'flex'
-	},
-	details: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'start'
-	},
-	content: {
-		flex: '1 0 auto',
-		alignItems: 'start'
-	},
-	cover: {
-		width: 151,
-		height: 175
-	},
-	controls: {
-		display: 'flex',
-		alignItems: 'center',
-		paddingLeft: theme.spacing.unit,
-		paddingBottom: theme.spacing.unit
-	}
-})
+import ThumbUpIcon from '@material-ui/icons/ThumbUp'
 
 class Filme extends Component {
 	render() {
-		const { classes, id, poster_path, title, release_date } = this.props
-
-		console.log(this.props)
+		const { classes, id, poster_path, title, release_date, vote_average, popularity } = this.props
 
 		return (
 			<Grid item md={isMobile ? 12 : 4} sm={isMobile ? 12 : 4} xs={12}>
-				<Card className={classes.card}>
+				<Card className={classes.card} square={isMobile}>
 					<CardActionArea component={Link} to={`/detalhes/${id}`} className={classes.details}>
 						<CardContent className={classes.content}>
 							<Typography component="h6" variant="h6">
@@ -55,15 +31,24 @@ class Filme extends Component {
 								{release_date && release_date.substring(0, 4)}
 							</Typography>
 							<div className={classes.controls}>
-								<IconButton aria-label="Previous">
-									<StarIcon />
-								</IconButton>
-								<IconButton aria-label="Play/pause">
-									<StarIcon />
-								</IconButton>
-								<IconButton aria-label="Next">
-									<StarIcon />
-								</IconButton>
+								<Chip
+									avatar={
+										<Avatar>
+											<StarIcon />
+										</Avatar>
+									}
+									label={vote_average}
+									color="secondary"
+								/>
+								<Chip
+									avatar={
+										<Avatar>
+											<ThumbUpIcon />
+										</Avatar>
+									}
+									label={popularity}
+									color="secondary"
+								/>
 							</div>
 						</CardContent>
 					</CardActionArea>
@@ -78,4 +63,4 @@ class Filme extends Component {
 	}
 }
 
-export default withStyles(styles)(Filme)
+export default withStyles(stylesFilme)(Filme)

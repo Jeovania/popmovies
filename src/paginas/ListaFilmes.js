@@ -11,6 +11,7 @@ import Navbar from '../components/Navbar'
 import Page from '../components/Page'
 import Filme from '../components/Filme'
 import ErrorMessage from '../components/ErrorMessage'
+import Progress from '../components/Progress'
 
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -37,20 +38,20 @@ class ListaFilmes extends Component {
 		return (
 			<Fragment>
 				<Navbar titulo="Filmes Populares" />
-				<Page>
+				<Page list>
 					{isLoading ? (
-						<CircularProgress />
+						<Progress />
 					) : filmes.length > 0 ? (
 						<InfiniteScroll
 							dataLength={filmes.length}
 							next={this.loadNextPage.bind(this)}
 							hasMore={hasMore}
 							hasChildren={filmes.length}
-							loader={<CircularProgress size={40} />}
-							endMessage={<ErrorMessage subtitle="Não há mais leads para mostrar" />}
+							loader={<Progress size={40} />}
+							endMessage={<ErrorMessage subtitle="Não há mais filmes para mostrar" />}
 						>
 							<Grid container direction="row" spacing={isMobile ? 0 : 8}>
-								{filmes.map(filme => <Filme key={filme.id} {...filme} />)}
+								{filmes.map((filme, index) => <Filme key={index} {...filme} />)}
 							</Grid>
 						</InfiniteScroll>
 					) : (

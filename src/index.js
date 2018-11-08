@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker'
 /* Style */
 import './index.css'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import { blueGrey, green, red } from '@material-ui/core/colors'
+import { blueGrey, yellow, red } from '@material-ui/core/colors'
 
 /* Routes */
 import Routes from './Routes'
@@ -21,7 +21,7 @@ const theme = createMuiTheme({
 	},
 	palette: {
 		primary: { light: blueGrey['400'], main: blueGrey['800'], dark: blueGrey['900'] },
-		secondary: { light: green['A200'], main: green['A400'], dark: green['A700'] },
+		secondary: { light: yellow['A200'], main: yellow['A400'], dark: yellow['A700'] },
 		error: red
 	}
 })

@@ -8,11 +8,14 @@ export const stylesPage = theme => ({
 		paddingLeft: theme.spacing.unit * 3
 	},
 	noMargin: {
-		marginTop: isMobile ? theme.mixins.toolbar.minHeight : 0,
-		marginBottom: isMobile ? theme.mixins.toolbar.minHeight : 0
+		marginTop: theme.mixins.toolbar.minHeight
 	},
 	pageList: {
-		marginTop: theme.mixins.toolbar.minHeight
+		marginTop: isMobile
+			? theme.mixins.toolbar.minHeight
+			: theme.mixins.toolbar.minHeight + theme.spacing.unit * 2,
+		marginRight: isMobile ? 0 : theme.spacing.unit,
+		marginLeft: isMobile ? 0 : theme.spacing.unit
 	},
 	progressMargin: {
 		paddingBottom: theme.spacing.unit * 6,
