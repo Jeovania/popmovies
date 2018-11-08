@@ -2,7 +2,7 @@
 	"name": "popmovies",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "http://pop-movies-teste.surge.sh/",
+	"homepage": "https://pop-movies-teste.surge.sh/",
 	"dependencies": {
 		"@material-ui/core": "^3.4.0",
 		"@material-ui/icons": "^3.0.1",
@@ -10,6 +10,7 @@
 		"firebase": "^5.5.7",
 		"history": "^4.7.2",
 		"react": "^16.6.0",
+		"react-currency-format": "^1.0.0",
 		"react-device-detect": "^1.6.1",
 		"react-dom": "^16.6.0",
 		"react-infinite-scroll-component": "^4.2.0",

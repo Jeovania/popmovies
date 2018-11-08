@@ -44,9 +44,12 @@ export const stylesDetalhes = theme => ({
 	acoes: {
 		marginTop: theme.spacing.unit * 3
 	},
+	divider: {
+		marginBottom: theme.spacing.unit * 3
+	},
 	videoWrapper: {
-		marginTop: theme.spacing.unit * 3,
-		marginBottom: theme.spacing.unit * 3,
+		marginTop: theme.spacing.unit * 2,
+		marginBottom: theme.spacing.unit * 2,
 		paddingRight: theme.spacing.unit * 2,
 		paddingLeft: theme.spacing.unit * 2
 	},
@@ -54,7 +57,8 @@ export const stylesDetalhes = theme => ({
 		position: 'relative',
 		paddingBottom: '56.25%',
 		paddingTop: 25,
-		height: 0
+		height: 0,
+		marginBottom: theme.spacing.unit
 	},
 	iframe: {
 		position: 'absolute',
