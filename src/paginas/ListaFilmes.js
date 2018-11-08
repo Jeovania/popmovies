@@ -36,7 +36,8 @@ class ListaFilmes extends Component {
 
 		return (
 			<Fragment>
-				<Navbar titulo="Filmes Populares" />
+				<Navbar titulo="Pop Movies" />
+
 				<Page list>
 					{isLoading ? (
 						<Progress />
@@ -59,7 +60,6 @@ class ListaFilmes extends Component {
 							subtitle="Tente novamente mais tarde ou faça uma busca"
 						/>
 					)}
-					<Filme />
 				</Page>
 			</Fragment>
 		)

@@ -51,16 +51,8 @@ class DetalhesFilme extends Component {
 
 		return (
 			<Fragment>
-				<Navbar
-					titulo={
-						`${filme.detalhes && filme.detalhes.title} (${filme.detalhes &&
-							filme.detalhes.release_date &&
-							filme.detalhes.release_date.substring(0, 4)})` || ''
-					}
-					hasTabs={true}
-					back={true}
-					backUrl="/"
-				/>
+				<Navbar hasTabs={true} back={true} backUrl="/" />
+
 				<Page noMargin>
 					{isLoading ? (
 						<Progress />

@@ -21,13 +21,16 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search'
 import { stylesNavbar } from '../assets/styles/Navbar'
 
+import logo from '../assets/images/logo.svg'
+import { isMobile } from 'react-device-detect'
+
 class Navbar extends Component {
 	buscar(e) {
 		debounce(this.props.busca(e.target.value), 500)
 	}
 
 	render() {
-		const { classes, titulo, hasTabs, back, backUrl } = this.props
+		const { classes, hasTabs, titulo, back, backUrl } = this.props
 
 		return (
 			<div className={classes.root}>
@@ -44,9 +47,17 @@ class Navbar extends Component {
 								<ArrowBackIcon />
 							</IconButton>
 						)}
-						<Typography variant="h6" color="inherit" className={classes.flex} noWrap>
-							{titulo}
-						</Typography>
+
+						<div className={classes.flex}>
+							<img src={logo} alt="Pop Movies" className={classes.logo} />
+
+							{titulo &&
+								!isMobile && (
+									<Typography variant="h6" color="inherit" noWrap>
+										{titulo}
+									</Typography>
+								)}
+						</div>
 
 						<div className={classes.search}>
 							<div className={classes.searchIcon}>
@@ -70,7 +81,6 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
 	classes: PropTypes.object.isRequired,
-	titulo: PropTypes.string.isRequired,
 	hasTabs: PropTypes.bool,
 	back: PropTypes.bool,
 	backUrl: PropTypes.string

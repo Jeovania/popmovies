@@ -1,19 +1,24 @@
 import { fade } from '@material-ui/core/styles/colorManipulator'
-import { isMobile } from 'react-device-detect'
 
 export const stylesNavbar = ({ palette, spacing, transitions, breakpoints, shape }) => ({
 	root: {
 		flexGrow: 1
 	},
 	flex: {
-		flexGrow: 1
+		display: 'flex',
+		flexGrow: 1,
+		alignItems: 'center'
 	},
 	appbar: {
 		backgroundColor: palette.primary.dark
 	},
+	logo: {
+		height: 35,
+		marginRight: 10
+	},
 	menuButton: {
 		marginLeft: -12,
-		marginRight: 20
+		marginRight: 0
 	},
 	search: {
 		position: 'relative',
@@ -30,7 +35,7 @@ export const stylesNavbar = ({ palette, spacing, transitions, breakpoints, shape
 		}
 	},
 	searchIcon: {
-		width: isMobile ? 0 : spacing.unit * 9,
+		width: spacing.unit * 9,
 		height: '100%',
 		position: 'absolute',
 		pointerEvents: 'none',
