@@ -65,6 +65,7 @@ class Navbar extends Component {
 							</div>
 							<InputBase
 								placeholder="Buscar filme"
+								ariaLabel="Busca"
 								classes={{
 									root: classes.inputRoot,
 									input: classes.inputInput
