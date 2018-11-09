@@ -179,3 +179,26 @@ export const getFavorito = filmeId => (dispatch, getState, { getFirebase, getFir
 			console.log('Erro', error)
 		})
 }
+
+/**
+ * Recebe a lista de filmes favoritos
+ * @param {integer} filmeId
+ */
+export const getFavoritos = (data = {}, page = 1, isLoading = true) => (
+	dispatch,
+	getState,
+	{ getFirebase, getFirestore }
+) => {
+	if (isLoading) dispatch(loading(true))
+	const db = getFirestore()
+	let filmeRef = db.collection('favoritos').limit(24)
+
+	filmeRef
+		.get()
+		.then(response => {
+			dispatch({ type: types.GET_FAVORITOS, payload: response.docs, page: page })
+		})
+		.catch(error => {
+			console.log('Erro', error)
+		})
+}

@@ -7,6 +7,7 @@ import { Snackbar } from 'react-redux-snackbar'
 /* Components Pages */
 import ListaFilmes from './paginas/ListaFilmes'
 import DetalhesFilme from './paginas/DetalhesFilme'
+import Favoritos from './paginas/Favoritos'
 import NotFound404 from './paginas/404'
 
 class Routes extends Component {
@@ -18,7 +19,8 @@ class Routes extends Component {
 				<Fragment>
 					<Switch>
 						<Route exact path="/" component={ListaFilmes} />
-						<Route exact path="/detalhes/:id" component={DetalhesFilme} />
+						<Route path="/detalhes/:id" component={DetalhesFilme} />
+						<Route exact path="/favoritos" component={Favoritos} />
 
 						<Route component={NotFound404} />
 					</Switch>

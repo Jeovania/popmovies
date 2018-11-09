@@ -5,7 +5,9 @@ export const INITIAL_STATE = {
 	favorito: false,
 	filme: [],
 	busca: [],
-	hasMore: false
+	hasMore: false,
+	favoritos: [],
+	hasMoreFavoritos: false
 }
 
 export const FILMES_API = process.env.REACT_APP_URL_FILMES_API
@@ -17,3 +19,4 @@ export const BUSCA_FILME = 'BUSCA_FILME'
 export const LOADING_FAVORITO = 'LOADING_FAVORITO'
 export const GET_FAVORITO = 'GET_FAVORITO'
 export const TOGGLE_FAVORITO = 'TOGGLE_FAVORITO'
+export const GET_FAVORITOS = 'GET_FAVORITOS'

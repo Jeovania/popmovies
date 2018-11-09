@@ -30,6 +30,22 @@ export const filmes = (state = types.INITIAL_STATE, action) => {
 				filme: action.payload,
 				loading: false
 			}
+		case types.GET_FAVORITOS:
+			let favoritos = state.favoritos
+
+			if (action.page === 1) {
+				favoritos = action.payload
+			} else {
+				favoritos = state.favoritos.concat(action.payload)
+			}
+
+			return {
+				...state,
+				loading: false,
+				favoritos: favoritos,
+				hasMoreFavoritos: action.page < action.payload.total_pages
+			}
+
 		case types.GET_FAVORITO:
 			return {
 				...state,
