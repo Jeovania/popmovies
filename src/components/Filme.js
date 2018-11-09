@@ -20,7 +20,7 @@ class Filme extends Component {
 		const { classes, id, poster_path, title, release_date, vote_average, popularity } = this.props
 
 		return (
-			<Grid item md={isMobile ? 12 : 4} sm={isMobile ? 12 : 4} xs={12}>
+			<Grid item md={isMobile ? 12 : 4} sm={isMobile ? 12 : 6} xs={12}>
 				<Card className={classes.card} square={isMobile}>
 					<CardActionArea component={Link} to={`/detalhes/${id}`} className={classes.details}>
 						<CardContent className={classes.content}>
@@ -39,6 +39,7 @@ class Filme extends Component {
 									}
 									label={vote_average}
 									color="secondary"
+									className={classes.tag}
 								/>
 								<Chip
 									avatar={

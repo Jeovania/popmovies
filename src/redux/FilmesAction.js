@@ -95,7 +95,7 @@ export const busca = (query, page = 1) => dispatch => {
 		.then(response => {
 			dispatch({
 				type: types.BUSCA_FILME,
-				payload: response.data,
+				payload: response.data.results,
 				page: page
 			})
 		})

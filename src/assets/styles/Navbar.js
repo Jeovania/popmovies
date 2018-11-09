@@ -42,23 +42,5 @@ export const stylesNavbar = ({ palette, spacing, transitions, breakpoints, shape
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
-	},
-	inputRoot: {
-		color: 'inherit',
-		width: '100%'
-	},
-	inputInput: {
-		paddingTop: spacing.unit,
-		paddingRight: spacing.unit,
-		paddingBottom: spacing.unit,
-		paddingLeft: spacing.unit * 10,
-		transition: transitions.create('width'),
-		width: '100%',
-		[breakpoints.up('sm')]: {
-			width: 120,
-			'&:focus': {
-				width: 200
-			}
-		}
 	}
 })

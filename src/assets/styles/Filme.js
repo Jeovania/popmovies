@@ -17,5 +17,8 @@ export const stylesFilme = theme => ({
 	},
 	controls: {
 		marginTop: theme.spacing.unit * 2
+	},
+	tag: {
+		marginRight: theme.spacing.unit
 	}
 })
