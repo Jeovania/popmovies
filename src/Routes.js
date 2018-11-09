@@ -2,13 +2,12 @@
 import React, { Component, Fragment } from 'react'
 import { Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
+import { Snackbar } from 'react-redux-snackbar'
 
 /* Components Pages */
 import ListaFilmes from './paginas/ListaFilmes'
 import DetalhesFilme from './paginas/DetalhesFilme'
 import NotFound404 from './paginas/404'
-
-import Messages from './components/Messages'
 
 class Routes extends Component {
 	render() {
@@ -23,7 +22,7 @@ class Routes extends Component {
 
 						<Route component={NotFound404} />
 					</Switch>
-					<Messages />
+					<Snackbar />
 				</Fragment>
 			</Router>
 		)

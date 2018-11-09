@@ -7,13 +7,13 @@ import { reduxFirestore, getFirestore } from 'redux-firestore'
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 
 /* Reducers */
-import { reducer as toastr } from 'react-redux-toastr'
+import { snackbarReducer as snackbar } from 'react-redux-snackbar'
 import { filmes } from './redux/FilmesReducer'
 
 import firebaseConfig from './redux/FirebaseService'
 
 const reducers = combineReducers({
-	toastr,
+	snackbar,
 	filmes
 })
 

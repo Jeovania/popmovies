@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { toastr } from 'react-redux-toastr'
+import { showSnack } from 'react-redux-snackbar'
 import * as types from '../redux/FilmesTypes'
 
 /**
@@ -37,7 +37,12 @@ export const getFilmes = (data = {}, page = 1, isLoading = true) => dispatch => 
 			})
 		})
 		.catch(error => {
-			toastr.error('Erro ao listar filmes', error.status_message)
+			dispatch(
+				showSnack('erro-lista-filmes', {
+					label: 'Erro ao listar filmes',
+					timeout: 3500
+				})
+			)
 			dispatch(loading(false))
 		})
 }
@@ -63,7 +68,13 @@ export const getFilme = id => async (dispatch, getState, { getFirebase, getFires
 			})
 		})
 		.catch(error => {
-			toastr.error('Erro ao recuperar filme', error.status_message)
+			dispatch(
+				showSnack('erro-recuperar-filme', {
+					label: 'Erro ao recuperar filme',
+					timeout: 3500
+				})
+			)
+
 			dispatch(loading(false))
 		})
 }
@@ -85,7 +96,12 @@ export const busca = (query, page = 1) => dispatch => {
 		})
 		.catch(error => {
 			console.log(error.status_message)
-			toastr.error('Erro ao buscar filme', error.status_message)
+			dispatch(
+				showSnack('erro-buscar-filme', {
+					label: 'Erro ao buscar filme',
+					timeout: 3500
+				})
+			)
 		})
 }
 
@@ -100,7 +116,13 @@ export const favoritar = filmeId => (dispatch, getState, { getFirebase, getFires
 	filmeRef
 		.set({ movieId: filmeId, createdAt: new Date() })
 		.then(response => {
-			toastr.success('Filme adicionado aos favoritos')
+			dispatch(
+				showSnack('filme-add-fav', {
+					label: 'Filme adicionado aos favoritos',
+					timeout: 3500
+				})
+			)
+
 			dispatch({ type: types.TOGGLE_FAVORITO, payload: true })
 		})
 		.catch(error => {
@@ -120,7 +142,13 @@ export const desfavoritar = filmeId => (dispatch, getState, { getFirebase, getFi
 	filmeRef
 		.delete()
 		.then(response => {
-			toastr.success('Filme removido dos favoritos')
+			dispatch(
+				showSnack('filme-rem-fav', {
+					label: 'Filme removido dos favoritos',
+					timeout: 3500
+				})
+			)
+
 			dispatch({ type: types.TOGGLE_FAVORITO, payload: false })
 		})
 		.catch(error => {

@@ -2,9 +2,10 @@
 	"name": "Pop Movies",
 	"short_name": "Pop Movies",
 	"theme_color": "#37474f",
-	"background_color": "#37474f",
+	"background_color": "#fdb62f",
 	"display": "standalone",
 	"start_url": ".",
+	"orientation": "landscape",
 	"icons": [
 		{
 			"src": "./favicon.ico",
