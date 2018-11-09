@@ -8,6 +8,8 @@ import ListaFilmes from './paginas/ListaFilmes'
 import DetalhesFilme from './paginas/DetalhesFilme'
 import NotFound404 from './paginas/404'
 
+import Messages from './components/Messages'
+
 class Routes extends Component {
 	render() {
 		const history = createBrowserHistory()
@@ -21,6 +23,7 @@ class Routes extends Component {
 
 						<Route component={NotFound404} />
 					</Switch>
+					<Messages />
 				</Fragment>
 			</Router>
 		)

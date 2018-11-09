@@ -25,14 +25,15 @@ export const filmes = (state = types.INITIAL_STATE, action) => {
 				filme: []
 			}
 		case types.GET_FILME:
-			let filme = {}
-			filme['detalhes'] = action.payload
-			filme['favorito'] = action.favorito
-
 			return {
 				...state,
-				filme: filme,
+				filme: action.payload,
 				loading: false
+			}
+		case types.GET_FAVORITO:
+			return {
+				...state,
+				favorito: action.payload
 			}
 		case types.BUSCA_FILME:
 			return {
@@ -40,13 +41,9 @@ export const filmes = (state = types.INITIAL_STATE, action) => {
 				busca: action.payload
 			}
 		case types.TOGGLE_FAVORITO: {
-			let filmeUpdate = {}
-			filmeUpdate['detalhes'] = state.filme.detalhes
-			filmeUpdate['favorito'] = action.payload
-
 			return {
 				...state,
-				filme: filmeUpdate
+				favorito: action.payload
 			}
 		}
 		default:

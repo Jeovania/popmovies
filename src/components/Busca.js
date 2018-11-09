@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom'
 
 import { busca } from '../redux/FilmesAction'
 
+import { withStyles } from '@material-ui/core/styles'
+import { stylesBusca } from '../assets/styles/Busca'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
-import { withStyles } from '@material-ui/core/styles'
-import { stylesBusca } from '../assets/styles/Busca'
+import SearchIcon from '@material-ui/icons/Search'
 
 function renderInputComponent(inputProps) {
 	const { classes, inputRef = () => {}, ref, ...other } = inputProps
@@ -55,7 +56,7 @@ function getSuggestionValue(suggestion) {
 	return suggestion.title
 }
 
-class BuscaInput extends Component {
+class Busca extends Component {
 	state = {
 		busca: '',
 		suggestions: []
@@ -101,29 +102,34 @@ class BuscaInput extends Component {
 		}
 
 		return (
-			<Autosuggest
-				{...autosuggestProps}
-				inputProps={{
-					classes: {
-						root: classes.inputRoot,
-						input: classes.inputInput
-					},
-					placeholder: 'Buscar filme',
-					value: this.state.busca,
-					onChange: e => this.buscar(e)
-				}}
-				theme={{
-					container: classes.container,
-					suggestionsContainerOpen: classes.suggestionsContainerOpen,
-					suggestionsList: classes.suggestionsList,
-					suggestion: classes.suggestion
-				}}
-				renderSuggestionsContainer={options => (
-					<Paper {...options.containerProps} square>
-						{options.children}
-					</Paper>
-				)}
-			/>
+			<div className={classes.search}>
+				<div className={classes.searchIcon}>
+					<SearchIcon />
+				</div>
+				<Autosuggest
+					{...autosuggestProps}
+					inputProps={{
+						classes: {
+							root: classes.inputRoot,
+							input: classes.inputInput
+						},
+						placeholder: 'Buscar filme',
+						value: this.state.busca,
+						onChange: e => this.buscar(e)
+					}}
+					theme={{
+						container: classes.container,
+						suggestionsContainerOpen: classes.suggestionsContainerOpen,
+						suggestionsList: classes.suggestionsList,
+						suggestion: classes.suggestion
+					}}
+					renderSuggestionsContainer={options => (
+						<Paper {...options.containerProps} square>
+							{options.children}
+						</Paper>
+					)}
+				/>
+			</div>
 		)
 	}
 }
@@ -134,4 +140,4 @@ const mapStateToProps = ({ filmes }) => ({
 	resultados: filmes.busca
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(stylesBusca)(BuscaInput))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(stylesBusca)(Busca))

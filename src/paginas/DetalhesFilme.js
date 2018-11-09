@@ -6,20 +6,20 @@ import { isMobile } from 'react-device-detect'
 import CurrencyFormat from 'react-currency-format'
 import DocumentTitle from 'react-document-title'
 
-import { getFilme, favoritar, desfavoritar } from '../redux/FilmesAction'
+import { getFilme } from '../redux/FilmesAction'
 
 /* Components */
 import Navbar from '../components/Navbar'
 import Page from '../components/Page'
 import Progress from '../components/Progress'
 import ErrorMessage from '../components/ErrorMessage'
+import Favorito from '../components/Favorito'
 
 import { stylesDetalhes } from '../assets/styles/Detalhes'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar'
 import StarIcon from '@material-ui/icons/Star'
@@ -52,24 +52,22 @@ class DetalhesFilme extends Component {
 	render() {
 		const { filme, isLoading, classes } = this.props
 
-		console.log(filme.detalhes)
-
 		return (
-			<DocumentTitle title={(filme.detalhes && filme.detalhes.title) || 'Filme'}>
+			<DocumentTitle title={(filme && filme.title) || 'Filme'}>
 				<Fragment>
 					<Navbar hasTabs={true} back={true} backUrl="/" />
 
 					<Page noMargin>
 						{isLoading ? (
 							<Progress />
-						) : filme.detalhes ? (
+						) : filme ? (
 							<Fragment>
 								<div
 									className={classes.cover}
 									style={{
 										backgroundImage: `url(https://image.tmdb.org/t/p/${
 											isMobile ? 'w780' : 'w1280'
-										}/${filme.detalhes.backdrop_path})`
+										}/${filme.backdrop_path})`
 									}}
 								>
 									<div className={classes.filter} />
@@ -83,27 +81,26 @@ class DetalhesFilme extends Component {
 										<Grid item md={3} sm={3} xs={12} className={classes.posterWrapper}>
 											<img
 												src={`https://image.tmdb.org/t/p/${isMobile ? 'w185' : 'w342'}/${
-													filme.detalhes.poster_path
+													filme.poster_path
 												}`}
-												alt={filme.detalhes.title}
+												alt={filme.title}
 												className={classes.poster}
 											/>
 										</Grid>
 										<Grid item md={9} sm={9} xs={12} className={classes.content}>
 											<Typography variant={isMobile ? 'h5' : 'h3'} color="inherit" gutterBottom>
-												{filme.detalhes.title} ({filme.detalhes.release_date &&
-													filme.detalhes.release_date.substring(0, 4)})
+												{filme.title} ({filme.release_date && filme.release_date.substring(0, 4)})
 											</Typography>
 											<Typography variant="h6" color="inherit">
 												Sumário:
 											</Typography>
 											<Typography variant="body2" color="inherit">
-												{filme.detalhes.overview}
+												{filme.overview}
 											</Typography>
 
 											<div className={classes.acoes}>
-												{filme.detalhes.genres &&
-													filme.detalhes.genres.map(genero => (
+												{filme.genres &&
+													filme.genres.map(genero => (
 														<Chip key={genero.id} label={genero.name} className={classes.tag} />
 													))}
 
@@ -113,7 +110,7 @@ class DetalhesFilme extends Component {
 															<StarIcon />
 														</Avatar>
 													}
-													label={filme.detalhes.vote_average}
+													label={filme.vote_average}
 													color="secondary"
 													className={classes.tag}
 												/>
@@ -124,30 +121,12 @@ class DetalhesFilme extends Component {
 															<ThumbUpIcon />
 														</Avatar>
 													}
-													label={filme.detalhes.popularity}
+													label={filme.popularity}
 													color="secondary"
 													className={classes.tag}
 												/>
 
-												{filme.favorito ? (
-													<Button
-														variant="fab"
-														aria-label="Desfazer Favorito"
-														color="secondary"
-														onClick={() => this.props.desfavoritar(filme.detalhes.id)}
-													>
-														<StarIcon />
-													</Button>
-												) : (
-													<Button
-														variant="fab"
-														aria-label="Favoritar"
-														color="default"
-														onClick={() => this.props.favoritar(filme.detalhes.id)}
-													>
-														<StarIcon />
-													</Button>
-												)}
+												<Favorito filmeId={this.props.match.params.id} />
 											</div>
 										</Grid>
 									</Grid>
@@ -160,14 +139,14 @@ class DetalhesFilme extends Component {
 												<ListItemText primary="Detalhes" />
 											</ListItem>
 											<ListItem divider>
-												<ListItemText primary="Situação:" secondary={filme.detalhes.status} />
+												<ListItemText primary="Situação:" secondary={filme.status} />
 											</ListItem>
 											<ListItem divider>
 												<ListItemText
 													primary="Orçamento:"
 													secondary={
 														<CurrencyFormat
-															value={filme.detalhes.budget}
+															value={filme.budget}
 															displayType={'text'}
 															thousandSeparator={true}
 															prefix={'$'}
@@ -180,7 +159,7 @@ class DetalhesFilme extends Component {
 													primary="Receita:"
 													secondary={
 														<CurrencyFormat
-															value={filme.detalhes.revenue}
+															value={filme.revenue}
 															displayType={'text'}
 															thousandSeparator={true}
 															prefix={'$'}
@@ -192,27 +171,17 @@ class DetalhesFilme extends Component {
 												<ListItemText
 													primary="Website:"
 													secondary={
-														<a
-															href={`${filme.detalhes.homepage}`}
-															target="_blank"
-															rel="noopener noreferrer"
-														>
-															{filme.detalhes.homepage}
+														<a href={`${filme.homepage}`} target="_blank" rel="noopener noreferrer">
+															{filme.homepage}
 														</a>
 													}
 												/>
 											</ListItem>
 											<ListItem divider>
-												<ListItemText
-													primary="Duração:"
-													secondary={`${filme.detalhes.runtime} min`}
-												/>
+												<ListItemText primary="Duração:" secondary={`${filme.runtime} min`} />
 											</ListItem>
 											<ListItem>
-												<ListItemText
-													primary="Titulo original:"
-													secondary={filme.detalhes.original_title}
-												/>
+												<ListItemText primary="Titulo original:" secondary={filme.original_title} />
 											</ListItem>
 										</List>
 									</Grid>
@@ -222,8 +191,8 @@ class DetalhesFilme extends Component {
 										</Typography>
 										<Divider className={classes.divider} />
 
-										{filme.detalhes.videos && filme.detalhes.videos.results.length > 0 ? (
-											filme.detalhes.videos.results.map(video => (
+										{filme.videos && filme.videos.results.length > 0 ? (
+											filme.videos.results.map(video => (
 												<div className={classes.videoResponsive} key={video.key}>
 													<iframe
 														title={video.name}
@@ -265,8 +234,7 @@ const mapStateToPros = ({ filmes }) => ({
 	filme: filmes.filme
 })
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators({ getFilme, favoritar, desfavoritar }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ getFilme }, dispatch)
 
 export default connect(mapStateToPros, mapDispatchToProps)(
 	withStyles(stylesDetalhes)(DetalhesFilme)

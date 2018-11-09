@@ -2,10 +2,8 @@ export const INITIAL_STATE = {
 	loading: false,
 	loading_favorito: false,
 	filmes: [],
-	filme: {
-		favorito: false,
-		detalhes: []
-	},
+	favorito: false,
+	filme: [],
 	busca: [],
 	hasMore: false
 }
@@ -17,4 +15,5 @@ export const GET_FILMES = 'GET_FILMES'
 export const GET_FILME = 'GET_FILME'
 export const BUSCA_FILME = 'BUSCA_FILME'
 export const LOADING_FAVORITO = 'LOADING_FAVORITO'
+export const GET_FAVORITO = 'GET_FAVORITO'
 export const TOGGLE_FAVORITO = 'TOGGLE_FAVORITO'

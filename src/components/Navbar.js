@@ -2,22 +2,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { isMobile } from 'react-device-detect'
 
-/* Actions */
-import BuscaInput from './BuscaInput'
-
-/* Layout */
+import Busca from './Busca'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import SearchIcon from '@material-ui/icons/Search'
 import { stylesNavbar } from '../assets/styles/Navbar'
-
 import logo from '../assets/images/logo.svg'
-import { isMobile } from 'react-device-detect'
 
 class Navbar extends Component {
 	render() {
@@ -50,13 +45,7 @@ class Navbar extends Component {
 								)}
 						</div>
 
-						<div className={classes.search}>
-							<div className={classes.searchIcon}>
-								<SearchIcon />
-							</div>
-
-							<BuscaInput />
-						</div>
+						<Busca />
 					</Toolbar>
 				</AppBar>
 			</div>
