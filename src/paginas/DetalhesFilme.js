@@ -37,12 +37,15 @@ class DetalhesFilme extends Component {
 
 	componentDidMount() {
 		const { id } = this.props.match.params
+		this.props.getFilme(this.props.match.params.id)
 		this.setState({ filmeId: id })
-		this.props.getFilme(id)
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return nextProps.match.params !== nextState.filmeId
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.id !== this.state.filmeId) {
+			this.props.getFilme(nextProps.match.params.id)
+			this.setState({ filmeId: nextProps.match.params.id })
+		}
 	}
 
 	static propTypes = {
