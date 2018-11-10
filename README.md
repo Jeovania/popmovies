@@ -6,4 +6,4 @@ App de Filmes Pop Movies
 
 Aplicação para mostrar os filmes mais populares da API do Movies DB.
 
-Demo Online: [pop-movies-teste.surge.sh](http://pop-movies-teste.surge.sh)
+Demo Online: [https://pop-movies-teste.surge.sh](https://pop-movies-teste.surge.sh)
