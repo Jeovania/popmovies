@@ -1,4 +1,5 @@
 import { isMobile } from 'react-device-detect'
+let vpHeight = window.innerHeight
 
 export const stylesPage = theme => ({
 	page: {
@@ -20,5 +21,10 @@ export const stylesPage = theme => ({
 	progressMargin: {
 		paddingBottom: theme.spacing.unit * 6,
 		paddingTop: theme.spacing.unit * 6
+	},
+	progressStandalone: {
+		height: vpHeight - theme.mixins.toolbar.minHeight,
+		display: 'flex',
+		alignItems: 'center'
 	}
 })

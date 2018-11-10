@@ -79,6 +79,14 @@ export const getFilme = id => async (dispatch, getState, { getFirebase, getFires
 		})
 }
 
+export const resetFilme = () => dispatch => {
+	dispatch({
+		type: types.GET_FILME,
+		payload: [],
+		favorito: false
+	})
+}
+
 /**
  * Busca por filme
  * @param {string} query
@@ -107,14 +115,14 @@ export const busca = (query, page = 1) => dispatch => {
 
 /**
  * Favoritar filme
- * @param {integer} filmeId
+ * @param {object} filme
  */
-export const favoritar = filmeId => (dispatch, getState, { getFirebase, getFirestore }) => {
+export const favoritar = filme => (dispatch, getState, { getFirebase, getFirestore }) => {
 	const db = getFirestore()
-	let filmeRef = db.collection('favoritos').doc(filmeId.toString())
+	let filmeRef = db.collection('favoritos').doc(filme.id.toString())
 
 	filmeRef
-		.set({ movieId: filmeId, createdAt: new Date() })
+		.set({ ...filme, createdAt: new Date() })
 		.then(response => {
 			dispatch(
 				showSnack('filme-add-fav', {
@@ -193,11 +201,16 @@ export const getFavoritos = (data = {}, page = 1, isLoading = true) => (
 	const db = getFirestore()
 	let filmeRef = db.collection('favoritos').limit(24)
 
+	let favoritos = []
+
 	filmeRef
 		.get()
 		.then(response => {
-			dispatch({ type: types.GET_FAVORITOS, payload: response.docs, page: page })
+			response.forEach(doc => {
+				favoritos.push(doc.data())
+			})
 		})
+		.then(data => dispatch({ type: types.GET_FAVORITOS, payload: favoritos, page: page }))
 		.catch(error => {
 			console.log('Erro', error)
 		})

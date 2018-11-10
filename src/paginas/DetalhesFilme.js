@@ -6,14 +6,13 @@ import { isMobile } from 'react-device-detect'
 import CurrencyFormat from 'react-currency-format'
 import DocumentTitle from 'react-document-title'
 
-import { getFilme } from '../redux/FilmesAction'
+import { getFilme, resetFilme, getFavorito, favoritar, desfavoritar } from '../redux/FilmesAction'
 
 /* Components */
 import Navbar from '../components/Navbar'
 import Page from '../components/Page'
 import Progress from '../components/Progress'
 import ErrorMessage from '../components/ErrorMessage'
-import Favorito from '../components/Favorito'
 
 import { stylesDetalhes } from '../assets/styles/Detalhes'
 import { withStyles } from '@material-ui/core/styles'
@@ -29,6 +28,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import Button from '@material-ui/core/Button'
 
 class DetalhesFilme extends Component {
 	state = {
@@ -38,6 +38,7 @@ class DetalhesFilme extends Component {
 	componentDidMount() {
 		const { id } = this.props.match.params
 		this.props.getFilme(this.props.match.params.id)
+		this.props.getFavorito(this.props.match.params.id)
 		this.setState({ filmeId: id })
 	}
 
@@ -48,12 +49,16 @@ class DetalhesFilme extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.props.resetFilme()
+	}
+
 	static propTypes = {
 		match: PropTypes.object.isRequired
 	}
 
 	render() {
-		const { filme, isLoading, classes } = this.props
+		const { isFav, filme, isLoading, classes } = this.props
 
 		return (
 			<DocumentTitle title={(filme && filme.title) || 'Filme'}>
@@ -62,7 +67,7 @@ class DetalhesFilme extends Component {
 
 					<Page noMargin>
 						{isLoading ? (
-							<Progress />
+							<Progress standalone />
 						) : filme ? (
 							<Fragment>
 								<div
@@ -129,7 +134,25 @@ class DetalhesFilme extends Component {
 													className={classes.tag}
 												/>
 
-												<Favorito filmeId={this.props.match.params.id} />
+												{isFav ? (
+													<Button
+														variant="fab"
+														aria-label="Desfazer Favorito"
+														color="secondary"
+														onClick={() => this.props.desfavoritar(filme.id)}
+													>
+														<StarIcon />
+													</Button>
+												) : (
+													<Button
+														variant="fab"
+														aria-label="Favoritar"
+														color="default"
+														onClick={() => this.props.favoritar(filme)}
+													>
+														<StarIcon />
+													</Button>
+												)}
 											</div>
 										</Grid>
 									</Grid>
@@ -223,6 +246,7 @@ class DetalhesFilme extends Component {
 								title="Erro ao carregar detalhes do filme"
 								subtitle="Tente recarregar a página"
 								icon={<RestorePageIcon fontSize="inherit" />}
+								standalone
 							/>
 						)}
 					</Page>
@@ -234,10 +258,12 @@ class DetalhesFilme extends Component {
 
 const mapStateToPros = ({ filmes }) => ({
 	isLoading: filmes.loading,
-	filme: filmes.filme
+	filme: filmes.filme,
+	isFav: filmes.favorito
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getFilme }, dispatch)
+const mapDispatchToProps = dispatch =>
+	bindActionCreators({ getFilme, resetFilme, getFavorito, favoritar, desfavoritar }, dispatch)
 
 export default connect(mapStateToPros, mapDispatchToProps)(
 	withStyles(stylesDetalhes)(DetalhesFilme)

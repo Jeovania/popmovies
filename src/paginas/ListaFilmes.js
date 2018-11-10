@@ -40,7 +40,7 @@ class ListaFilmes extends Component {
 
 				<Page list>
 					{isLoading ? (
-						<Progress />
+						<Progress standalone />
 					) : filmes.length > 0 ? (
 						<InfiniteScroll
 							dataLength={filmes.length}
@@ -51,13 +51,14 @@ class ListaFilmes extends Component {
 							endMessage={<ErrorMessage subtitle="Não há mais filmes para mostrar" />}
 						>
 							<Grid container direction="row" spacing={isMobile ? 0 : 8}>
-								{filmes.map((filme, index) => <Filme key={index} {...filme} />)}
+								{filmes.map((filme, index) => <Filme key={index} filme={filme} />)}
 							</Grid>
 						</InfiniteScroll>
 					) : (
 						<ErrorMessage
 							title="Não há filmes para mostrar"
 							subtitle="Tente novamente mais tarde ou faça uma busca"
+							standalone
 						/>
 					)}
 				</Page>

@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import HomeIcon from '@material-ui/icons/Home'
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary'
 import StarIcon from '@material-ui/icons/Star'
 import { stylesNavbar } from '../assets/styles/Navbar'
 import Drawer from '@material-ui/core/Drawer'
@@ -95,7 +95,7 @@ class Navbar extends Component {
 							<List component="nav" disablePadding>
 								<ListItem button component={Link} to="/" divider>
 									<ListItemIcon>
-										<HomeIcon />
+										<VideoLibraryIcon />
 									</ListItemIcon>
 									<ListItemText primary="Lista de Filmes" />
 								</ListItem>
@@ -114,10 +114,17 @@ class Navbar extends Component {
 	}
 }
 
+Navbar.defaultProps = {
+	size: 50,
+	hasTabs: false,
+	back: false
+}
+
 Navbar.propTypes = {
 	classes: PropTypes.object.isRequired,
-	hasTabs: PropTypes.bool,
-	back: PropTypes.bool,
+	size: PropTypes.number.isRequired,
+	hasTabs: PropTypes.bool.isRequired,
+	back: PropTypes.bool.isRequired,
 	backUrl: PropTypes.string
 }
 

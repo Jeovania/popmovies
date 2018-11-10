@@ -16,6 +16,7 @@ class NotFound404 extends Component {
 						title="Página não encontrada"
 						subtitle="Volte para a página inicial"
 						icon={<FindInPageIcon fontSize="inherit" />}
+						standalone
 					/>
 				</Page>
 			</Fragment>

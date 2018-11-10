@@ -28,7 +28,8 @@ Page.defaultProps = {
 
 Page.propTypes = {
 	list: PropTypes.bool,
-	noMargin: PropTypes.bool
+	noMargin: PropTypes.bool,
+	classes: PropTypes.object.isRequired
 }
 
 export default withStyles(stylesPage)(Page)

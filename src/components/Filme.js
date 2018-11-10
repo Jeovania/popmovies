@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
+import { PropTypes } from 'prop-types'
 
 import { stylesFilme } from '../assets/styles/Filme'
 import { withStyles } from '@material-ui/core/styles'
@@ -17,18 +18,18 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp'
 
 class Filme extends Component {
 	render() {
-		const { classes, id, poster_path, title, release_date, vote_average, popularity } = this.props
+		const { classes, filme } = this.props
 
 		return (
 			<Grid item md={isMobile ? 12 : 4} sm={isMobile ? 12 : 6} xs={12}>
 				<Card className={classes.card} square={isMobile}>
-					<CardActionArea component={Link} to={`/detalhes/${id}`} className={classes.details}>
+					<CardActionArea component={Link} to={`/detalhes/${filme.id}`} className={classes.details}>
 						<CardContent className={classes.content}>
 							<Typography component="h6" variant="h6">
-								{title}
+								{filme.title}
 							</Typography>
 							<Typography variant="subtitle1" color="textSecondary">
-								{release_date && release_date.substring(0, 4)}
+								{filme.release_date && filme.release_date.substring(0, 4)}
 							</Typography>
 							<div className={classes.controls}>
 								<Chip
@@ -37,7 +38,7 @@ class Filme extends Component {
 											<StarIcon />
 										</Avatar>
 									}
-									label={vote_average}
+									label={filme.vote_average}
 									color="secondary"
 									className={classes.tag}
 								/>
@@ -47,7 +48,7 @@ class Filme extends Component {
 											<ThumbUpIcon />
 										</Avatar>
 									}
-									label={popularity}
+									label={filme.popularity}
 									color="secondary"
 								/>
 							</div>
@@ -55,13 +56,18 @@ class Filme extends Component {
 					</CardActionArea>
 					<CardMedia
 						className={classes.cover}
-						image={`https://image.tmdb.org/t/p/w185/${poster_path}`}
-						title={title}
+						image={`https://image.tmdb.org/t/p/w185/${filme.poster_path}`}
+						title={filme.title}
 					/>
 				</Card>
 			</Grid>
 		)
 	}
+}
+
+Filme.propTypes = {
+	filme: PropTypes.array.isRequired,
+	classes: PropTypes.object.isRequired
 }
 
 export default withStyles(stylesFilme)(Filme)

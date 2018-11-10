@@ -4,6 +4,7 @@ import { debounce } from 'underscore'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
+import { PropTypes } from 'prop-types'
 
 import { busca } from '../redux/FilmesAction'
 
@@ -132,6 +133,11 @@ class Busca extends Component {
 			</div>
 		)
 	}
+}
+
+Busca.propTypes = {
+	resultados: PropTypes.array,
+	classes: PropTypes.object.isRequired
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({ busca }, dispatch)
