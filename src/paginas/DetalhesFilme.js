@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
+import { isEmpty } from 'underscore'
 import { connect } from 'react-redux'
 import { isMobile } from 'react-device-detect'
 import CurrencyFormat from 'react-currency-format'
@@ -68,7 +69,7 @@ class DetalhesFilme extends Component {
 					<Page noMargin>
 						{isLoading ? (
 							<Progress standalone />
-						) : filme ? (
+						) : !isEmpty(filme) ? (
 							<Fragment>
 								<div
 									className={classes.cover}

@@ -1,12 +1,12 @@
 export const INITIAL_STATE = {
 	loading: false,
 	loading_favorito: false,
-	filmes: [],
+	filmes: {},
 	favorito: false,
-	filme: [],
-	busca: [],
+	filme: {},
+	busca: {},
 	hasMore: false,
-	favoritos: [],
+	favoritos: {},
 	hasMoreFavoritos: false
 }
 

@@ -136,7 +136,7 @@ class Busca extends Component {
 }
 
 Busca.propTypes = {
-	resultados: PropTypes.array,
+	resultados: PropTypes.object,
 	classes: PropTypes.object.isRequired
 }
 

@@ -1,6 +1,12 @@
 const CACHE_NAME = 'pwa-pop-movies-cache'
 
-const urlsToCache = ['/', 'static/js/bundle.js', 'static/media/**/*']
+const urlsToCache = [
+	'/',
+	'static/js/bundle.js',
+	'static/media/**/*',
+	'https://image.tmdb.org/t/p/',
+	'https://api.themoviedb.org/3'
+]
 
 self.addEventListener('install', event => {
 	event.waitUntil(

@@ -39,7 +39,7 @@ export const getFilmes = (data = {}, page = 1, isLoading = true) => dispatch => 
 		.catch(error => {
 			dispatch(
 				showSnack('erro-lista-filmes', {
-					label: 'Erro ao listar filmes',
+					label: 'Erro ao listar filmes. Verifique sua conexão com a internet',
 					timeout: 3500
 				})
 			)
@@ -70,7 +70,7 @@ export const getFilme = id => async (dispatch, getState, { getFirebase, getFires
 		.catch(error => {
 			dispatch(
 				showSnack('erro-recuperar-filme', {
-					label: 'Erro ao recuperar filme',
+					label: 'Erro ao recuperar filme. Verifique sua conexão com a internet',
 					timeout: 3500
 				})
 			)
@@ -83,7 +83,8 @@ export const resetFilme = () => dispatch => {
 	dispatch({
 		type: types.GET_FILME,
 		payload: [],
-		favorito: false
+		favorito: false,
+		loading: false
 	})
 }
 
